@@ -1,11 +1,14 @@
-document.body.addEventListener("onDOMContentLoaded", () => {
-  let data;
+async function renderGraph() {
+  //   let data;
 
-  fetch(
+  //   await fetch(
+  //     "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((jsonData) => (data = jsonData));
+  const data = await fetch(
     "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json"
-  )
-    .then((response) => response.json())
-    .then((jsonData) => (data = jsonData));
+  ).then((response) => response.json());
 
   const svg = d3
     .select("body")
@@ -25,4 +28,5 @@ document.body.addEventListener("onDOMContentLoaded", () => {
     .attr("y", (d) => {
       return 1000 - d[1];
     });
-});
+}
+renderGraph();
