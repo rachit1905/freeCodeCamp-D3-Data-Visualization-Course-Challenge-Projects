@@ -12,26 +12,31 @@ async function renderGraph() {
 
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data.data, (d) => d[1])])
-    .range([0, 1000]);
+    .domain([d3.min(data.data, (d) => d[1]), d3.max(data.data, (d) => d[1])])
+    .range([10, window.visualViewport.height]);
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.data.length - 1])
+    .range([0, window.visualViewport.width]);
 
   const svg = d3
     .select("body")
     .append("svg")
-    .attr("width", "1000") //just an arbitary size to check if the code works
-    .attr("height", "1000");
+    .attr("width", "100vw") //just an arbitary size to check if the code works
+    .attr("height", "100vh");
 
+  const barWidth = window.visualViewport.width / data.data.length;
   svg
     .selectAll("rect")
     .data(data.data)
     .enter()
     .append("rect")
     .style("background-color", "blue")
-    .style("width", "10px")
-    .style("height", (d) => d[1])
-    .attr("x", (d, i) => i * 11)
+    .style("width", barWidth)
+    .style("height", (d) => yScale(d[1]))
+    .attr("x", (d, i) => xScale(i))
     .attr("y", (d) => {
-      return 1000 - d[1];
+      return window.visualViewport.height - yScale(d[1]);
     });
 }
 renderGraph();
