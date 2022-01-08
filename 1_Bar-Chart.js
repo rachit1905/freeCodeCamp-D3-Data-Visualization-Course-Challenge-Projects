@@ -10,6 +10,11 @@ async function renderGraph() {
     "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json"
   ).then((response) => response.json());
 
+  const yScale = d3
+    .scaleLinear()
+    .domain([0, d3.max(data.data, (d) => d[1])])
+    .range([0, 1000]);
+
   const svg = d3
     .select("body")
     .append("svg")
