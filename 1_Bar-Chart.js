@@ -9,6 +9,7 @@ async function renderGraph() {
   const data = await fetch(
     "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json"
   ).then((response) => response.json());
+  console.log(data);
 
   const yScale = d3
     .scaleLinear()
@@ -22,7 +23,7 @@ async function renderGraph() {
   const svg = d3
     .select("body")
     .append("svg")
-    .attr("width", "100vw") //just an arbitary size to check if the code works
+    .attr("width", "100vw")
     .attr("height", "100vh");
 
   const barWidth = window.visualViewport.width / data.data.length;
@@ -38,5 +39,16 @@ async function renderGraph() {
     .attr("y", (d) => {
       return window.visualViewport.height - yScale(d[1]);
     });
+
+  const yAxis = d3.axisLeft(yScale);
+  // const xAxis = d3.axisBottom(xScale);
+  const xAxis = d3.axisBottom(
+    d3
+      .scaleLinear()
+      .range([0, window.visualViewport.width])
+      .domain([1947, 2015])
+  );
+  svg.append("g").attr("class", "translate-x-10").call(yAxis);
+  svg.append("g").attr("class", "translate-y-10").call(xAxis);
 }
 renderGraph();
