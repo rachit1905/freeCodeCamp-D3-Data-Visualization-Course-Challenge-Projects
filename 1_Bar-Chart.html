@@ -8,6 +8,26 @@
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script defer src="./1_Bar-Chart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      html{
+        height: 100vh;
+        width: 100vw;
+        /* overflow: hidden; */
+      }
+      body{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      g:last-child{
+        transform: translateY(65vw);
+      }
+      span{
+        z-index: 100;
+        transform: translateY(10vh);
+        position: absolute;
+      }
+    </style>
   </head>
   <body>
     <span class="text-7xl font-mono tracking-tight w-screen text-center"

@@ -13,12 +13,12 @@ async function renderGraph() {
 
   const yScale = d3
     .scaleLinear()
-    .domain([d3.min(data.data, (d) => d[1]), d3.max(data.data, (d) => d[1])])
-    .range([10, window.visualViewport.height]);
+    .domain([0, d3.max(data.data, (d) => d[1])])
+    .range([0, window.visualViewport.height]);
   const xScale = d3
     .scaleLinear()
     .domain([0, data.data.length - 1])
-    .range([0, window.visualViewport.width]);
+    .range([40, window.visualViewport.width-44]);
 
   const svg = d3
     .select("body")
@@ -37,16 +37,22 @@ async function renderGraph() {
     .style("height", (d) => yScale(d[1]))
     .attr("x", (d, i) => xScale(i))
     .attr("y", (d) => {
-      return window.visualViewport.height - yScale(d[1]);
+      return window.visualViewport.height - yScale(d[1] - 10);
     });
 
-  const yAxis = d3.axisLeft(yScale);
+  // const yAxis = d3.axisLeft(yScale);
   // const xAxis = d3.axisBottom(xScale);
   const xAxis = d3.axisBottom(
     d3
       .scaleLinear()
       .range([0, window.visualViewport.width])
       .domain([1947, 2015])
+  );
+  const yAxis = d3.axisLeft(
+    d3
+    .scaleLinear()
+    .domain([d3.max(data.data, (d) => d[1]), 0])
+    .range([10, window.visualViewport.height])
   );
   svg.append("g").attr("class", "translate-x-10").call(yAxis);
   svg.append("g").attr("class", "translate-y-10").call(xAxis);
