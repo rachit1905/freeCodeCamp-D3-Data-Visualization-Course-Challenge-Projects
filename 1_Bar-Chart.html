@@ -9,23 +9,42 @@
     <script defer src="./1_Bar-Chart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      html{
+      html {
         height: 100vh;
         width: 100vw;
         /* overflow: hidden; */
+        /* overflow-y: scroll; */
       }
-      body{
+      body {
         display: flex;
         align-items: center;
         flex-direction: column;
       }
-      g:last-child{
-        transform: translateY(65vw);
+      g:last-child {
+        /* transform: translateY(96vh); */
+        position: relative;
+        bottom: 0;
       }
-      span{
+      span {
         z-index: 100;
         transform: translateY(10vh);
         position: absolute;
+      }
+      #tooltip {
+        display: none;
+        padding: 20px;
+        background-color: red;
+        z-index: 100;
+      }
+      .bar:hover > #tooltip {
+        display: block;
+      }
+      .bar {
+        fill: blue;
+        margin: 0 0 20px 0;
+      }
+      .bar:hover {
+        fill: rgb(136, 136, 231);
       }
     </style>
   </head>
